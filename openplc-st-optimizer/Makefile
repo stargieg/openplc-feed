@@ -1,0 +1,48 @@
+include $(TOPDIR)/rules.mk
+
+PKG_NAME:=openplc-st-optimizer
+PKG_VERSION:=3
+PKG_RELEASE:=2
+PKG_SOURCE_URL:=https://github.com/thiagoralves/OpenPLC_v3.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_DATE:=2024-05-01
+PKG_SOURCE_VERSION:=b4702061dc14d1024856f71b4543298d77007b88
+#PKG_SOURCE_VERSION:=master
+PKG_MIRROR_HASH:=skip
+PKG_LICENSE:=LGPL-2.1-or-later
+PKG_LICENSE_FILES:=COPYING.LESSER
+PKG_SOURCE_SUBDIR:=openplc-$(PKG_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+
+include $(INCLUDE_DIR)/package.mk
+
+define Package/$(PKG_NAME)
+  SECTION:=net
+  CATEGORY:=Network
+  TITLE:=OpenPLC st-optimizer version 3
+  URL:=https://github.com/thiagoralves/OpenPLC_v3
+  DEPENDS:=+libstdcpp +openplc
+endef
+
+define Package/$(PKG_NAME)/description
+ This program is responsible for the optimization process after the initial
+ compilation from PLCOpen Editor. All it does is to scan the ST file for
+ first-level IF statements and concatenate identical statements together
+endef
+
+#$(PKG_UNPACK)
+define Build/Prepare
+	cp -a $(BUILD_DIR)/openplc-$(PKG_VERSION)/utils/st_optimizer_src/* $(PKG_BUILD_DIR)/
+endef
+#$(call Build/Prepare/Default)
+
+define Build/Compile
+    $(TARGET_CXX) $(PKG_BUILD_DIR)/st_optimizer.cpp -o $(PKG_BUILD_DIR)/st_optimizer
+endef
+
+define Package/$(PKG_NAME)/install
+	$(INSTALL_DIR) $(1)/usr/libexec/openplc/webserver
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/st_optimizer $(1)/usr/libexec/openplc/webserver/
+endef
+
+$(eval $(call BuildPackage,openplc-st-optimizer))
