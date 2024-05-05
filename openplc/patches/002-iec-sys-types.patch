@@ -1,7 +1,7 @@
-diff --git a/webserver/core/lib/iec_std_lib.h b/webserver/core/lib/iec_std_lib.h
+diff --git a/core/lib/iec_std_lib.h b/core/lib/iec_std_lib.h
 index 5f685e4..ada3327 100755
---- a/webserver/core/lib/iec_std_lib.h
-+++ b/webserver/core/lib/iec_std_lib.h
+--- a/core/lib/iec_std_lib.h
++++ b/core/lib/iec_std_lib.h
 @@ -41,9 +41,7 @@
  #include <string.h>
  #include <stdarg.h>

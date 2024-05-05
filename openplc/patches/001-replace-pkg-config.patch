@@ -1,7 +1,7 @@
-diff --git a/webserver/scripts/compile_program.sh b/webserver/scripts/compile_program.sh
+diff --git a/scripts/compile_program.sh b/scripts/compile_program.sh
 index e1f8729..de9576e 100755
---- a/webserver/scripts/compile_program.sh
-+++ b/webserver/scripts/compile_program.sh
+--- a/scripts/compile_program.sh
++++ b/scripts/compile_program.sh
 @@ -104,7 +104,7 @@ elif [ "$OPENPLC_PLATFORM" = "linux" ]; then
      if [ "$OPENPLC_DRIVER" = "sl_rp4" ]; then
          g++ -std=gnu++11 *.cpp *.o -o openplc -I ./lib -pthread -fpermissive `pkg-config --cflags --libs libmodbus` -lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w $ETHERCAT_INC -DSL_RP4
