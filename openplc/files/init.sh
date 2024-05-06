@@ -19,6 +19,7 @@ start() {
 	fi
 	if ! [ -f /usr/libexec/openplc/core/openplc ] ; then
 		logger -t openplc "Compile blank_program.st"
+		echo "blank_program.st" > /usr/libexec/openplc/active_program
 		cd /usr/libexec/openplc/scripts
 		./compile_program.sh blank_program.st
 	fi

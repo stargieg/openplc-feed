@@ -1,0 +1,14 @@
+diff --git a/core/lib/iec_std_lib.h b/core/lib/iec_std_lib.h
+index 5f685e4..ada3327 100755
+--- a/core/lib/iec_std_lib.h
++++ b/core/lib/iec_std_lib.h
+@@ -41,9 +41,7 @@
+ #include <string.h>
+ #include <stdarg.h>
+ 
+-#ifdef __CYGWIN__
+ #include <sys/types.h>
+-#endif
+ 
+ #ifdef DEBUG_IEC
+ #define DBG(...) printf(__VA_ARGS__);
