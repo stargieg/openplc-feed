@@ -25,6 +25,9 @@ start() {
 	fi
 	logger -t openplc "Start Service"
 	cd /usr/libexec/openplc
+	#todo
 	#/usr/libexec/openplc/.venv/bin/python3 webserver.py
 	python3 webserver.py >/dev/null 2>&1 &
+	#todo
+	#./core/openplc >/dev/null 2>&1 &
 }

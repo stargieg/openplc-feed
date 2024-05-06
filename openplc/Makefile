@@ -47,6 +47,7 @@ define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/libexec/openplc
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/*.py $(1)/usr/libexec/openplc/
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/*.cfg $(1)/usr/libexec/openplc/
+	$(INSTALL_DATA) $(PKG_BUILD_DIR)/*.db $(1)/usr/libexec/openplc/
 	cp -a $(PKG_BUILD_DIR)/core $(1)/usr/libexec/openplc/
 	cp -a $(PKG_BUILD_DIR)/lib $(1)/usr/libexec/openplc/
 	cp -a $(PKG_BUILD_DIR)/scripts $(1)/usr/libexec/openplc/

@@ -22,7 +22,9 @@ define Package/$(PKG_NAME)
   TITLE:=OpenPLC Program version 3
   URL:=https://github.com/thiagoralves/OpenPLC_v3
   DEPENDS:=+libstdcpp +openplc-libmodbus +openplc-dnp
+  EXTRA_DEPENDS:=sqlite3-cli
 endef
+
 define Package/$(PKG_NAME)/description
   Customer PLC Program
 endef
@@ -64,7 +66,9 @@ define Build/Compile
 endef
 
 define Package/$(PKG_NAME)/install
-	$(INSTALL_DIR) $(1)/usr/libexec/openplc/core/
+	$(INSTALL_DIR) $(1)/etc/uci-defaults
+	$(INSTALL_BIN) ./files/uci-defaults.sh $(1)/etc/uci-defaults/50_openplc-program-pid
+	$(INSTALL_DIR) $(1)/usr/libexec/openplc/core
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/core/openplc $(1)/usr/libexec/openplc/core/
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/active_program $(1)/usr/libexec/openplc/
 endef
