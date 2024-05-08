@@ -1,0 +1,12 @@
+diff --git a/src/ecat_handler/ecat_handler.h b/src/ecat_handler/ecat_handler.h
+index 19aa13c..3c9c029 100644
+--- a/src/ecat_handler/ecat_handler.h
++++ b/src/ecat_handler/ecat_handler.h
+@@ -1,6 +1,7 @@
+ #pragma once
+ 
+ #include <stdint.h>
++#include <sys/types.h>
+ 
+ /**
+  * For registering all read/write pdos and their links to PLC

@@ -1,0 +1,12 @@
+diff --git a/src/xml_conf_parser/CMakeLists.txt b/src/xml_conf_parser/CMakeLists.txt
+index 7f460a9..0cc1eff 100644
+--- a/src/xml_conf_parser/CMakeLists.txt
++++ b/src/xml_conf_parser/CMakeLists.txt
+@@ -1,5 +1,7 @@
+ set(LIB_NAME xml_conf_parser)
+ 
++set( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fPIC" )
++set( CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -fPIC" )
+ add_library(${LIB_NAME} "")
+ 
+ target_sources(${LIB_NAME}

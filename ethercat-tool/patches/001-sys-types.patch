@@ -1,0 +1,12 @@
+diff --git a/master/globals.h b/master/globals.h
+index a0c820df..62f0e28c 100644
+--- a/master/globals.h
++++ b/master/globals.h
+@@ -26,7 +26,7 @@
+ 
+ #ifndef __EC_MASTER_GLOBALS_H__
+ #define __EC_MASTER_GLOBALS_H__
+-
++#include <sys/types.h>
+ #include "../globals.h"
+ #include "../include/ecrt.h"

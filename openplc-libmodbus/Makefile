@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=openplc-libmodbus
 PKG_VERSION:=3
-PKG_RELEASE:=7
+PKG_RELEASE:=8
 PKG_SOURCE_URL:=https://github.com/thiagoralves/OpenPLC_v3.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_DATE:=2024-05-01

@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=openplc-program-pid
 PKG_VERSION:=3
-PKG_RELEASE:=2
+PKG_RELEASE:=5
 PKG_SOURCE_URL:=https://github.com/thiagoralves/OpenPLC_v3.git
 PKG_MIRROR_HASH:=a57f35651a4d4e0901b09994a3d81736dc79e14a03f72c1afddee37669dde6da
 PKG_SOURCE_PROTO:=git
@@ -21,7 +21,7 @@ define Package/$(PKG_NAME)
   CATEGORY:=Network
   TITLE:=OpenPLC Program version 3
   URL:=https://github.com/thiagoralves/OpenPLC_v3
-  DEPENDS:=+libstdcpp +openplc-libmodbus +openplc-dnp
+  DEPENDS:=+libstdcpp +openplc-libmodbus +openplc-dnp +ethercat-src
   EXTRA_DEPENDS:=sqlite3-cli
 endef
 
@@ -48,29 +48,31 @@ define Build/Compile
 	mv -f $(PKG_BUILD_DIR)/LOCATED_VARIABLES.h $(PKG_BUILD_DIR)/VARIABLES.csv $(PKG_BUILD_DIR)/core/
 	mv -f $(PKG_BUILD_DIR)/Config0.c $(PKG_BUILD_DIR)/Config0.h $(PKG_BUILD_DIR)/core/
 	mv -f $(PKG_BUILD_DIR)/Res0.c $(PKG_BUILD_DIR)/core/
+	sed -i '7s/^/#include "ethercat_src.h" /' $(PKG_BUILD_DIR)/core/Res0.c
 	$(TARGET_CXX) -std=gnu++11 -I $(PKG_BUILD_DIR)/core/lib \
 		-c $(PKG_BUILD_DIR)/core/Config0.c \
 		-o $(PKG_BUILD_DIR)/core/Config0.o \
-		-lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w
+		-lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w -lethercat_src -D _ethercat_src
 	$(TARGET_CXX) -std=gnu++11 -I $(PKG_BUILD_DIR)/core/lib \
 		-c $(PKG_BUILD_DIR)/core/Res0.c \
 		-o $(PKG_BUILD_DIR)/core/Res0.o \
-		-lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w
+		-lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w -lethercat_src -D _ethercat_src
 	cd $(PKG_BUILD_DIR)/core ; \
 		$(STAGING_DIR_HOST)/bin/glue_generator
 	$(TARGET_CXX) -std=gnu++11 $(PKG_BUILD_DIR)/core/*.cpp \
 		$(PKG_BUILD_DIR)/core/*.o -o $(PKG_BUILD_DIR)/core/openplc \
 		-I $(PKG_BUILD_DIR)/core/lib -pthread -fpermissive \
 		`pkg-config --cflags --libs libmodbus` \
-		-lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w
+		-lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w -lethercat_src -D _ethercat_src
 endef
 
 define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
 	$(INSTALL_BIN) ./files/uci-defaults.sh $(1)/etc/uci-defaults/50_openplc-program-pid
 	$(INSTALL_DIR) $(1)/usr/libexec/openplc/core
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/core/openplc $(1)/usr/libexec/openplc/core/
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/active_program $(1)/usr/libexec/openplc/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/core/openplc $(1)/usr/libexec/openplc/core/pid_program
+	$(INSTALL_DIR) $(1)/usr/libexec/openplc/st_files
+	$(INSTALL_DATA) ./pid_program.st $(1)/usr/libexec/openplc/st_files/
 endef
 
 $(eval $(call BuildPackage,openplc-program-pid))

@@ -21,7 +21,7 @@ define Package/$(PKG_NAME)
   TITLE:=OpenPLC Runtime version 3
   URL:=https://github.com/thiagoralves/OpenPLC_v3
   EXTRA_DEPENDS:=python3-pip, python3-flask, python3-werkzeug, python3-flask-login, python3-pyserial, python3-six, gcc, bash
-  DEPENDS:=+openplc-dnp +openplc-glue-generator +openplc-libmodbus +openplc-matiec +openplc-st-optimizer
+  DEPENDS:=+openplc-dnp +openplc-glue-generator +openplc-libmodbus +openplc-matiec +openplc-st-optimizer +ethercat-src
 endef
 define Package/$(PKG_NAME)/description
   This package is a Webserver flask.
