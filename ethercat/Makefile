@@ -3,7 +3,7 @@ include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=ethercat
 PKG_VERSION:=1.5
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_SOURCE_URL:=https://gitlab.com/etherlab.org/ethercat.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=stable-1.5
@@ -20,7 +20,10 @@ define KernelPackage/$(PKG_NAME)
   SUBMENU:=Network Devices
   TITLE:=EtherCAT Master from EtherLab
   URL:=https://gitlab.com/etherlab.org/ethercat
-  AUTOLOAD:=$(call AutoLoad,50,ethercat)
+  AUTOLOAD:=$(call AutoLoad,50,ec_master) \
+    $(call AutoLoad,50,ec_generic)
+  FILES:=$(PKG_BUILD_DIR)/master/ec_master.ko \
+    $(PKG_BUILD_DIR)/devices/ec_generic.ko
 endef
 
 include $(INCLUDE_DIR)/kernel-defaults.mk
