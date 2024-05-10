@@ -13,10 +13,6 @@ stop() {
 }
 
 start() {
-	if ! python3 -m pip show pymodbus >/dev/null 2>&1 ; then
-		logger -t openplc "Install pymodbus"
-		python3 -m pip install pymodbus==2.5.3
-	fi
 	if ! [ -f /usr/libexec/openplc/core/openplc ] ; then
 		logger -t openplc "Compile blank_program.st"
 		echo "blank_program.st" > /usr/libexec/openplc/active_program
@@ -25,9 +21,5 @@ start() {
 	fi
 	logger -t openplc "Start Service"
 	cd /usr/libexec/openplc
-	#todo
-	#/usr/libexec/openplc/.venv/bin/python3 webserver.py
 	python3 webserver.py >/dev/null 2>&1 &
-	#todo
-	#./core/openplc >/dev/null 2>&1 &
 }

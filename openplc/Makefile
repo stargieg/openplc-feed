@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=openplc
 PKG_VERSION:=3
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 PKG_SOURCE_URL:=https://github.com/thiagoralves/OpenPLC_v3.git
 PKG_MIRROR_HASH:=a57f35651a4d4e0901b09994a3d81736dc79e14a03f72c1afddee37669dde6da
 PKG_SOURCE_PROTO:=git
@@ -20,9 +20,10 @@ define Package/$(PKG_NAME)
   CATEGORY:=Network
   TITLE:=OpenPLC Runtime version 3
   URL:=https://github.com/thiagoralves/OpenPLC_v3
-  EXTRA_DEPENDS:=python3-pip, python3-flask, python3-werkzeug, python3-flask-login, python3-pyserial, python3-six, gcc, bash
-  DEPENDS:=+openplc-dnp +openplc-glue-generator +openplc-libmodbus +openplc-matiec +openplc-st-optimizer +ethercat-src
+  EXTRA_DEPENDS:=python3-flask, python3-werkzeug, python3-flask-login, gcc, bash
+  DEPENDS:=+openplc-dnp +openplc-glue-generator +openplc-libmodbus +openplc-matiec +openplc-st-optimizer +ethercat-src +python3-pymodbus
 endef
+
 define Package/$(PKG_NAME)/description
   This package is a Webserver flask.
 endef
