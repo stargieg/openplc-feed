@@ -34,6 +34,7 @@ define Package/$(PKG_NAME)/description
 endef
 
 define Host/Prepare
+	mkdir -p $(PKG_BUILD_DIR)
 	$(PKG_UNPACK)
 	mkdir -p $(HOST_BUILD_DIR)/
 	cp -a $(BUILD_DIR)/openplc-$(PKG_VERSION)-git/utils/matiec_src/* $(HOST_BUILD_DIR)/
