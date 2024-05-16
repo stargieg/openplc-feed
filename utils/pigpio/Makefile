@@ -3,25 +3,36 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=pigpio
-PKG_VERSION:=58
-PKG_REV:=2bd75cd1c4c698e8281ddbea8834ed7d7c58396a
+CMAKE_INSTALL:=1
+PKG_VERSION:=79
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=git://github.com/joan2937/pigpio
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://github.com/joan2937/pigpio/archive/refs/tags/v$(PKG_VERSION)
+PKG_HASH:=c5337c0b7ae888caf0262a6f476af0e2ab67065f7650148a0b21900b8d1eaed7
 
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/cmake.mk
+RSTRIP:=:
+STRIP:=:
 
-define Package/pigpio
+define Package/pigpio/Default
   SECTION:=utils
   CATEGORY:=Utilities
   TITLE:=Pi GPIO library and daemon
-  DEPENDS:=@TARGET_brcm2708 +librt +libpthread
+  DEPENDS:=@TARGET_bcm27xx +librt +libpthread
   URL:=http://github.com/joan2937/pigpio
 endef
+
+define Package/pigpio
+  $(call Package/pigpio/Default)
+endef
+
+define Package/pigpio-dev
+  $(call Package/pigpio/Default)
+  TITLE:=Pi GPIO library and daemon dev
+  DEPENDS:=+pigpio
+ endef
 
 define Package/pigpio/description
   pigpio is a C library for the Raspberry which allows control of the General Purpose Input Outputs (GPIO).
@@ -29,25 +40,24 @@ define Package/pigpio/description
   This package contains the core C library, pigpiod daemon, and pigs CLI tool.
 endef
 
-# Nothing necessary
-define Build/Configure
-endef
-
-define Build/Compile
-	$(MAKE) -C $(PKG_BUILD_DIR) \
-		$(TARGET_CONFIGURE_OPTS) \
-		CFLAGS="$(TARGET_CFLAGS)" \
-		LDFLAGS="$(TARGET_LDFLAGS)" \
-	libpigpio.so pigpiod pigs
+define Build/InstallDev
+	$(INSTALL_DIR) $(1)/usr/lib $(1)/usr/include
+	$(CP) $(PKG_INSTALL_DIR)/usr/include/*.h $(1)/usr/include/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libpigpio*so* $(1)/usr/lib/
 endef
 
 define Package/pigpio/install
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_BUILD_DIR)/libpigpio.so $(1)/usr/lib/
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/pigs $(1)/usr/bin/
-	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/pigpiod $(1)/usr/sbin/
+	$(INSTALL_DIR) $(1)/usr/bin $(1)/usr/sbin $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libpigpio*so* $(1)/usr/lib/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/pigs $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/pig2vcd $(1)/usr/bin/
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/pigpiod $(1)/usr/sbin/
+endef
+
+define Package/pigpio-dev/install
+	$(INSTALL_DIR) $(1)/usr/include
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/include/*.h $(1)/usr/include/
 endef
 
 $(eval $(call BuildPackage,pigpio))
+$(eval $(call BuildPackage,pigpio-dev))

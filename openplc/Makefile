@@ -21,7 +21,7 @@ define Package/$(PKG_NAME)
   TITLE:=OpenPLC Runtime version 3
   URL:=https://github.com/thiagoralves/OpenPLC_v3
   EXTRA_DEPENDS:=python3-flask, python3-werkzeug, python3-flask-login, gcc, bash
-  DEPENDS:=+openplc-dnp +openplc-glue-generator +openplc-libmodbus +openplc-matiec +openplc-st-optimizer +ethercat-src +python3-pymodbus
+  DEPENDS:=+openplc-dnp +openplc-glue-generator +openplc-libmodbus +openplc-matiec +openplc-st-optimizer +ethercat-src +python3-pymodbus +TARGET_bcm27xx:pigpio-dev
 endef
 
 define Package/$(PKG_NAME)/description
