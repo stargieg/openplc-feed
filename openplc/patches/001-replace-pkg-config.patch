@@ -1,5 +1,5 @@
 diff --git a/scripts/compile_program.sh b/scripts/compile_program.sh
-index e1f8729..2dcea2e 100755
+index e1f8729..447fc7e 100755
 --- a/scripts/compile_program.sh
 +++ b/scripts/compile_program.sh
 @@ -41,7 +41,7 @@ fi
@@ -74,9 +74,9 @@ index e1f8729..2dcea2e 100755
 -        g++ -DSEQUENT -std=gnu++11 *.cpp *.o -o openplc -I ./lib -lrt -lpigpio -lpthread -fpermissive `pkg-config --cflags --libs libmodbus` -lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w 
 -    else    
 -        g++ -std=gnu++11 *.cpp *.o -o openplc -I ./lib -lrt -lpigpio -lpthread -fpermissive `pkg-config --cflags --libs libmodbus` -lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w
-+        g++ -DSEQUENT -std=gnu++11 *.cpp *.o -o openplc -I ./lib -lrt -lpigpio -lpthread -fpermissive -I /usr/include/modbus -lmodbus -lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w
++        g++ -DSEQUENT -std=gnu++11 *.cpp *.o -o openplc -I ./lib -lwiringPi -lwiringPiDev -lpigpio -lpthread -fpermissive -I /usr/include/modbus -lmodbus -lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w
 +    else
-+        g++ -std=gnu++11 *.cpp *.o -o openplc -I ./lib -lrt -lpigpio -lpthread -fpermissive -I /usr/include/modbus -lmodbus -lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w
++        g++ -std=gnu++11 *.cpp *.o -o openplc -I ./lib -lwiringPi -lwiringPiDev -lpigpio -lpthread -fpermissive -I /usr/include/modbus -lmodbus -lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w
      fi
      if [ $? -ne 0 ]; then
          echo "Error compiling C files"

@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=openplc
 PKG_VERSION:=3
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 PKG_SOURCE_URL:=https://github.com/thiagoralves/OpenPLC_v3.git
 PKG_MIRROR_HASH:=a57f35651a4d4e0901b09994a3d81736dc79e14a03f72c1afddee37669dde6da
 PKG_SOURCE_PROTO:=git

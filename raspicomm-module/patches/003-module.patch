@@ -1,0 +1,66 @@
+diff --git a/module.c b/module.c
+index 9493a6b..021dcd2 100644
+--- a/module.c
++++ b/module.c
+@@ -125,9 +125,9 @@ static void raspicommDriver_close(struct tty_struct *, struct file *);
+ static int  raspicommDriver_write(struct tty_struct *, 
+                                   const unsigned char *, 
+                                   int);
+-static int  raspicommDriver_write_room(struct tty_struct *);
++static unsigned int  raspicommDriver_write_room(struct tty_struct *);
+ static void raspicommDriver_flush_buffer(struct tty_struct *);
+-static int  raspicommDriver_chars_in_buffer(struct tty_struct *);
++static unsigned int  raspicommDriver_chars_in_buffer(struct tty_struct *);
+ static void raspicommDriver_set_termios(struct tty_struct *, struct ktermios *);
+ static void raspicommDriver_stop(struct tty_struct *);
+ static void raspicommDriver_start(struct tty_struct *);
+@@ -247,7 +247,7 @@ static int __init raspicomm_init()
+ 
+   /* initialize the port */
+   tty_port_init(&Port);
+-  Port.low_latency = 1;
++  //Port.low_latency = 1;
+ 
+   /* allocate the driver */
+   raspicommDriver = tty_alloc_driver(PORT_COUNT, TTY_DRIVER_REAL_RAW);
+@@ -290,7 +290,7 @@ static int __init raspicomm_init()
+   if (tty_register_driver(raspicommDriver))
+   {
+     LOG("tty_register_driver failed");
+-    put_tty_driver(raspicommDriver);
++    //put_tty_driver(raspicommDriver);
+     return -1; // return if registration fails
+   }
+ 
+@@ -306,10 +306,10 @@ static void __exit raspicomm_exit()
+   LOG ("raspicomm_exit() called");
+ 
+   // unregister the driver
+-  if (tty_unregister_driver(raspicommDriver))
+-    LOG("tty_unregister_driver failed");
++  //if (tty_unregister_driver(raspicommDriver))
++  //  LOG("tty_unregister_driver failed");
+ 
+-  put_tty_driver(raspicommDriver);
++  //put_tty_driver(raspicommDriver);
+ 
+   // free mapped memory
+   raspicomm_spi0_deinit_mem(Spi0);
+@@ -862,7 +862,7 @@ static int raspicommDriver_write(struct tty_struct* tty,
+ }
+ 
+ // called by kernel to evaluate how many bytes can be written
+-static int raspicommDriver_write_room(struct tty_struct *tty)
++static unsigned int raspicommDriver_write_room(struct tty_struct *tty)
+ {
+   return INT_MAX;
+ }
+@@ -872,7 +872,7 @@ static void raspicommDriver_flush_buffer(struct tty_struct * tty)
+   LOG("raspicommDriver_flush_buffer called");
+ }
+ 
+-static int raspicommDriver_chars_in_buffer(struct tty_struct * tty)
++static unsigned int raspicommDriver_chars_in_buffer(struct tty_struct * tty)
+ {
+   //LOG("raspicommDriver_chars_in_buffer called");
+   return 0;

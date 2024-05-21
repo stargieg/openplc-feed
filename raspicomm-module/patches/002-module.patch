@@ -1,0 +1,15 @@
+diff --git a/module.h b/module.h
+index 7319624..50c50a3 100644
+--- a/module.h
++++ b/module.h
+@@ -6,8 +6,8 @@
+ // ****************************************************************************
+ MODULE_LICENSE("GPL");
+ MODULE_AUTHOR("mdk");
+-MODULE_DESCRIPTION("Raspicomm kernel module with tty driver support for rs-485");
+-MODULE_SUPPORTED_DEVICE("ttyRPC");
++//MODULE_DESCRIPTION("Raspicomm kernel module with tty driver support for rs-485");
++//MODULE_SUPPORTED_DEVICE("ttyRPC");
+ 
+ #define SUCCESS 0 
+ 
