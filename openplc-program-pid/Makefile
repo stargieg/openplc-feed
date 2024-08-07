@@ -34,14 +34,14 @@ define Package/$(PKG_NAME)-rpi
   $(call Package/$(PKG_NAME))
   TITLE:=OpenPLC Program PID version 3 for RPI
   VARIANT:=rpi
-  DEPENDS:=+TARGET_bcm27xx +libstdcpp +openplc-libmodbus +openplc-dnp +pigpio-dev
+  DEPENDS:=@TARGET_bcm27xx +libstdcpp +openplc-libmodbus +openplc-dnp +pigpio-dev
 endef
 
 define Package/$(PKG_NAME)-rpi_old
   $(call Package/$(PKG_NAME))
   TITLE:=OpenPLC Program PID version 3 for old RPI
   VARIANT:=rpi_old
-  DEPENDS:=+TARGET_bcm27xx +libstdcpp +openplc-libmodbus +openplc-dnp +wiringpi-dev
+  DEPENDS:=@TARGET_bcm27xx +libstdcpp +openplc-libmodbus +openplc-dnp +wiringpi-dev
 endef
 
 define Build/Prepare
