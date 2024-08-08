@@ -23,23 +23,46 @@ To install all its package definitions, run:
 
 ## Binary Packages (opkg)
 
-You can install prebuild packages via opkg for RPI and x86_64(KVM)
-Add repo public key
+You can install prebuild packages via opkg.
+Add feed public key and feed url
+### releases/23.05.4 ath79 generic
+```
+wget -O /etc/opkg/keys/152ccf91cd6bfbdd http://feeds.lunatiki.de/openplc/releases/23.05.4/mips_24kc/152ccf91cd6bfbdd
+echo 'src/gz openplc http://feeds.lunatiki.de/openplc/releases/23.05.4/mips_24kc' >> /etc/opkg/customfeeds.conf
+```
+### releases/23.05.4 bcm27xx bcm2709
 ```
 wget -O /etc/opkg/keys/152ccf91cd6bfbdd http://feeds.lunatiki.de/openplc/releases/23.05.4/arm_cortex-a7_neon-vfpv4/152ccf91cd6bfbdd
-```
-Add repo
-```
 echo 'src/gz openplc http://feeds.lunatiki.de/openplc/releases/23.05.4/arm_cortex-a7_neon-vfpv4' >> /etc/opkg/customfeeds.conf
 ```
+### releases/23.05.4 ipq806x generic
+```
+wget -O /etc/opkg/keys/152ccf91cd6bfbdd http://feeds.lunatiki.de/openplc/releases/23.05.4/arm_cortex-a15_neon-vfpv4/152ccf91cd6bfbdd
+echo 'src/gz openplc http://feeds.lunatiki.de/openplc/releases/23.05.4/arm_cortex-a15_neon-vfpv4' >> /etc/opkg/customfeeds.conf
+```
+### releases/23.05.4 x86 64
+```
+wget -O /etc/opkg/keys/152ccf91cd6bfbdd http://feeds.lunatiki.de/openplc/releases/23.05.4/x86_64/152ccf91cd6bfbdd
+echo 'src/gz openplc http://feeds.lunatiki.de/openplc/releases/23.05.4/x86_64' >> /etc/opkg/customfeeds.conf
+```
+### releases/23.05.4 x86 generic
+```
+wget -O /etc/opkg/keys/152ccf91cd6bfbdd http://feeds.lunatiki.de/openplc/releases/23.05.4/i386_pentium4/152ccf91cd6bfbdd
+echo 'src/gz openplc http://feeds.lunatiki.de/openplc/releases/23.05.4/i386_pentium4' >> /etc/opkg/customfeeds.conf
+```
+
+
 Install demo program depends on hardware layer https://github.com/thiagoralves/OpenPLC_v3/tree/master/webserver/core/hardware_layers
 ```
 opkg update
-opkg install openplc-program-blank-rpi_old
+opkg install openplc-program-blank
+# or
+opkg install openplc-program-pid
+# or
+opkg install openplc-program-pid-rpi
+# or
+opkg install openplc-program-pid-rpi_old
 ```
-
-For X86_64 search and replace arm_cortex-a7_neon-vfpv4 with x86_64
-
 
 ## Development
 
