@@ -21,6 +21,44 @@ To install all its package definitions, run:
 ./scripts/feeds install -a -p openplc
 ```
 
+### Usage of OpenWRT SDK
+
+[Using the SDK](https://openwrt.org/docs/guide-developer/toolchain/using_the_sdk)
+
+This example is for the most common use mips_24kc arch
+
+```
+wget openwrt-sdk-23.05.4-ath79-generic_gcc-12.3.0_musl.Linux-x86_64.tar.xz
+tar -x -f openwrt-sdk-23.05.4-ath79-generic_gcc-12.3.0_musl.Linux-x86_64.tar.xz
+cd openwrt-sdk-23.05.4-ath79-generic_gcc-12.3.0_musl.Linux-x86_64
+grep " base" feeds.conf.default > feeds.conf
+echo "src-git openplc https://github.com/stargieg/openplc-feed.git" >> feeds.conf
+./scripts/feeds update
+./scripts/feeds install -a
+cat << EOF > .config
+# CONFIG_ALL_NONSHARED is not set
+# CONFIG_ALL_KMODS is not set
+# CONFIG_ALL is not set
+CONFIG_NO_STRIP=y
+# CONFIG_AUTOREBUILD is not set
+# CONFIG_AUTOREMOVE is not set
+# CONFIG_IMAGEOPT is not set
+CONFIG_PACKAGE_openplc-program-blank=m
+CONFIG_PACKAGE_openplc-program-blank-rpi=m
+CONFIG_PACKAGE_openplc-program-blank-rpi_old=m
+CONFIG_PACKAGE_openplc-program-pid=m
+CONFIG_PACKAGE_openplc-program-pid-rpi=m
+CONFIG_PACKAGE_openplc-program-pid-rpi_old=m
+CONFIG_PACKAGE_kmod-raspicomm-module=m
+EOF
+make defconfig
+make package/feeds/openplc/openplc-program-blank/compile
+make package/feeds/openplc/openplc-program-pid/compile
+make package/feeds/openplc/raspicomm-module/compile
+```
+After the compilation is finished, the generated .ipk files are placed in the bin/packages directories inside the directory you extracted the SDK into.
+
+
 ## Binary Packages (opkg)
 
 You can install prebuild packages via opkg.
