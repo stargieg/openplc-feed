@@ -28,7 +28,7 @@ To install all its package definitions, run:
 This example is for the most common use mips_24kc arch
 
 ```
-wget openwrt-sdk-23.05.4-ath79-generic_gcc-12.3.0_musl.Linux-x86_64.tar.xz
+wget https://downloads.openwrt.org/releases/23.05.4/targets/ath79/generic/openwrt-sdk-23.05.4-ath79-generic_gcc-12.3.0_musl.Linux-x86_64.tar.xz
 tar -x -f openwrt-sdk-23.05.4-ath79-generic_gcc-12.3.0_musl.Linux-x86_64.tar.xz
 cd openwrt-sdk-23.05.4-ath79-generic_gcc-12.3.0_musl.Linux-x86_64
 grep " base" feeds.conf.default > feeds.conf
@@ -58,6 +58,23 @@ make package/feeds/openplc/raspicomm-module/compile
 ```
 After the compilation is finished, the generated .ipk files are placed in the bin/packages directories inside the directory you extracted the SDK into.
 
+### Usage of OpenWRT IB
+
+[Using the imagebuilder (IB)](https://openwrt.org/docs/guide-user/additional-software/imagebuilder)
+
+This example is for the most common use mips_24kc arch
+
+```
+wget https://downloads.openwrt.org/releases/23.05.4/targets/ath79/generic/openwrt-imagebuilder-23.05.4-ath79-generic.Linux-x86_64.tar.xz
+tar -x -f openwrt-imagebuilder-23.05.4-ath79-generic.Linux-x86_64.tar.xz
+cd openwrt-imagebuilder-23.05.4-ath79-generic.Linux-x86_64
+cat << EOF >> repositories.conf
+src/gz openplc http://feeds.lunatiki.de/openplc/releases/23.05.4/mips_24kc
+EOF
+wget -O keys/152ccf91cd6bfbdd http://feeds.lunatiki.de/openplc/releases/23.05.4/mips_24kc/152ccf91cd6bfbdd
+make image PROFILE="glinet_gl-mifi" PACKAGES="openplc-program-pid"
+```
+After the build is finished, the generated firmware files are placed in the bin/targets directories inside the directory you extracted the IB into.
 
 ## Binary Packages (opkg)
 
