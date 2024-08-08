@@ -22,7 +22,7 @@ define Package/$(PKG_NAME)
   TITLE:=OpenPLC Program version 3
   VARIANT:=linux
   URL:=https://github.com/thiagoralves/OpenPLC_v3
-  DEPENDS:=+libstdcpp +openplc
+  DEPENDS:=+libstdcpp +openplc +openplc-libmodbus +openplc-dnp +TARGET_x86:ethercat-src
   EXTRA_DEPENDS:=sqlite3-cli
 endef
 
@@ -34,14 +34,14 @@ define Package/$(PKG_NAME)-rpi
   $(call Package/$(PKG_NAME))
   TITLE:=OpenPLC Program version 3 for RPI
   VARIANT:=rpi
-  DEPENDS:=@TARGET_bcm27xx +libstdcpp +openplc-libmodbus +openplc-dnp +pigpio-dev
+  DEPENDS:=@TARGET_bcm27xx +libstdcpp +openplc-libmodbus +openplc-dnp +TARGET_bcm27xx:pigpio-dev
  endef
 
 define Package/$(PKG_NAME)-rpi_old
   $(call Package/$(PKG_NAME))
   TITLE:=OpenPLC Program version 3 for old RPI
   VARIANT:=rpi_old
-  DEPENDS:=@TARGET_bcm27xx +libstdcpp +openplc-libmodbus +openplc-dnp +wiringpi-dev
+  DEPENDS:=@TARGET_bcm27xx +libstdcpp +openplc-libmodbus +openplc-dnp +TARGET_bcm27xx:wiringpi-dev
  endef
 
 define Build/Prepare
