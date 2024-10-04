@@ -11,6 +11,7 @@ PKG_SOURCE_VERSION:=b4702061dc14d1024856f71b4543298d77007b88
 PKG_SOURCE_SUBDIR:=openplc-$(PKG_VERSION)-git
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)/$(BUILD_VARIANT)
 PKG_BUILD_DEPENDS:=openplc-glue-generator/host openplc-matiec/host openplc-st-optimizer/host
+PKG_BUILD_PARALLEL:=0
 
 include $(INCLUDE_DIR)/package.mk
 RSTRIP:=:

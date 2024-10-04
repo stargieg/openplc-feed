@@ -7,7 +7,7 @@ PKG_RELEASE:=2
 PKG_SOURCE_URL:=https://gitlab.com/etherlab.org/ethercat.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=stable-1.5
-PKG_MIRROR_HASH:=d2ab528892f1886bf410132837a17fd20842ad825b882bb8d6adc7785d3d7a75
+PKG_MIRROR_HASH:=abacb8228c5691f89de614327b6d10e94c438030c7693684e8971ef1ea723c59
 PKG_LICENSE:=LGPL-2.1-or-later
 PKG_LICENSE_FILES:=COPYING.LESSER
 PKG_FIXUP:=autoreconf
@@ -38,6 +38,7 @@ define Build/Prepare
 endef
 
 CONFIGURE_ARGS +=--enable-8139too=no
+CONFIGURE_ARGS +=--with-linux-dir="$(LINUX_DIR)"
 
 define Build/Compile
 	$(MAKE) -C "$(LINUX_DIR)" \

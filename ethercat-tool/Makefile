@@ -33,6 +33,7 @@ define Build/Prepare
 endef
 
 CONFIGURE_ARGS +=--enable-8139too=no
+CONFIGURE_ARGS +=--with-linux-dir="$(LINUX_DIR)"
 
 define Build/Compile
 	$(MAKE) -C $(PKG_BUILD_DIR)
