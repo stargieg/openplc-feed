@@ -28,9 +28,9 @@ To install all its package definitions, run:
 This example is for the most common use mips_24kc arch
 
 ```
-wget https://downloads.openwrt.org/releases/23.05.4/targets/ath79/generic/openwrt-sdk-23.05.4-ath79-generic_gcc-12.3.0_musl.Linux-x86_64.tar.xz
-tar -x -f openwrt-sdk-23.05.4-ath79-generic_gcc-12.3.0_musl.Linux-x86_64.tar.xz
-cd openwrt-sdk-23.05.4-ath79-generic_gcc-12.3.0_musl.Linux-x86_64
+wget https://downloads.openwrt.org/releases/23.05.5/targets/ath79/generic/openwrt-sdk-23.05.5-ath79-generic_gcc-12.3.0_musl.Linux-x86_64.tar.xz
+tar -x -f openwrt-sdk-23.05.5-ath79-generic_gcc-12.3.0_musl.Linux-x86_64.tar.xz
+cd openwrt-sdk-23.05.5-ath79-generic_gcc-12.3.0_musl.Linux-x86_64
 grep " base" feeds.conf.default > feeds.conf
 echo "src-git openplc https://github.com/stargieg/openplc-feed.git" >> feeds.conf
 ./scripts/feeds update
@@ -65,13 +65,13 @@ After the compilation is finished, the generated .ipk files are placed in the bi
 This example is for the most common use mips_24kc arch
 
 ```
-wget https://downloads.openwrt.org/releases/23.05.4/targets/ath79/generic/openwrt-imagebuilder-23.05.4-ath79-generic.Linux-x86_64.tar.xz
-tar -x -f openwrt-imagebuilder-23.05.4-ath79-generic.Linux-x86_64.tar.xz
-cd openwrt-imagebuilder-23.05.4-ath79-generic.Linux-x86_64
+wget https://downloads.openwrt.org/releases/23.05.5/targets/ath79/generic/openwrt-imagebuilder-23.05.5-ath79-generic.Linux-x86_64.tar.xz
+tar -x -f openwrt-imagebuilder-23.05.5-ath79-generic.Linux-x86_64.tar.xz
+cd openwrt-imagebuilder-23.05.5-ath79-generic.Linux-x86_64
 cat << EOF >> repositories.conf
-src/gz openplc http://feeds.lunatiki.de/openplc/releases/23.05.4/mips_24kc
+src/gz openplc http://feeds.lunatiki.de/openplc/releases/23.05.5/mips_24kc
 EOF
-wget -O keys/152ccf91cd6bfbdd http://feeds.lunatiki.de/openplc/releases/23.05.4/mips_24kc/152ccf91cd6bfbdd
+wget -O keys/152ccf91cd6bfbdd http://feeds.lunatiki.de/openplc/releases/23.05.5/mips_24kc/152ccf91cd6bfbdd
 make image PROFILE="glinet_gl-mifi" PACKAGES="openplc-program-pid"
 ```
 After the build is finished, the generated firmware files are placed in the bin/targets directories inside the directory you extracted the IB into.
@@ -80,30 +80,30 @@ After the build is finished, the generated firmware files are placed in the bin/
 
 You can install prebuild packages via opkg.
 Add feed public key and feed url
-### releases/23.05.4 ath79 generic
+### releases/23.05.5 ath79 generic
 ```
-wget -O /etc/opkg/keys/152ccf91cd6bfbdd http://feeds.lunatiki.de/openplc/releases/23.05.4/mips_24kc/152ccf91cd6bfbdd
-echo 'src/gz openplc http://feeds.lunatiki.de/openplc/releases/23.05.4/mips_24kc' >> /etc/opkg/customfeeds.conf
+wget -O /etc/opkg/keys/152ccf91cd6bfbdd http://feeds.lunatiki.de/openplc/releases/23.05.5/mips_24kc/152ccf91cd6bfbdd
+echo 'src/gz openplc http://feeds.lunatiki.de/openplc/releases/23.05.5/mips_24kc' >> /etc/opkg/customfeeds.conf
 ```
-### releases/23.05.4 bcm27xx bcm2709
+### releases/23.05.5 bcm27xx bcm2709
 ```
-wget -O /etc/opkg/keys/152ccf91cd6bfbdd http://feeds.lunatiki.de/openplc/releases/23.05.4/arm_cortex-a7_neon-vfpv4/152ccf91cd6bfbdd
-echo 'src/gz openplc http://feeds.lunatiki.de/openplc/releases/23.05.4/arm_cortex-a7_neon-vfpv4' >> /etc/opkg/customfeeds.conf
+wget -O /etc/opkg/keys/152ccf91cd6bfbdd http://feeds.lunatiki.de/openplc/releases/23.05.5/arm_cortex-a7_neon-vfpv4/152ccf91cd6bfbdd
+echo 'src/gz openplc http://feeds.lunatiki.de/openplc/releases/23.05.5/arm_cortex-a7_neon-vfpv4' >> /etc/opkg/customfeeds.conf
 ```
-### releases/23.05.4 ipq806x generic
+### releases/23.05.5 ipq806x generic
 ```
-wget -O /etc/opkg/keys/152ccf91cd6bfbdd http://feeds.lunatiki.de/openplc/releases/23.05.4/arm_cortex-a15_neon-vfpv4/152ccf91cd6bfbdd
-echo 'src/gz openplc http://feeds.lunatiki.de/openplc/releases/23.05.4/arm_cortex-a15_neon-vfpv4' >> /etc/opkg/customfeeds.conf
+wget -O /etc/opkg/keys/152ccf91cd6bfbdd http://feeds.lunatiki.de/openplc/releases/23.05.5/arm_cortex-a15_neon-vfpv4/152ccf91cd6bfbdd
+echo 'src/gz openplc http://feeds.lunatiki.de/openplc/releases/23.05.5/arm_cortex-a15_neon-vfpv4' >> /etc/opkg/customfeeds.conf
 ```
-### releases/23.05.4 x86 64
+### releases/23.05.5 x86 64
 ```
-wget -O /etc/opkg/keys/152ccf91cd6bfbdd http://feeds.lunatiki.de/openplc/releases/23.05.4/x86_64/152ccf91cd6bfbdd
-echo 'src/gz openplc http://feeds.lunatiki.de/openplc/releases/23.05.4/x86_64' >> /etc/opkg/customfeeds.conf
+wget -O /etc/opkg/keys/152ccf91cd6bfbdd http://feeds.lunatiki.de/openplc/releases/23.05.5/x86_64/152ccf91cd6bfbdd
+echo 'src/gz openplc http://feeds.lunatiki.de/openplc/releases/23.05.5/x86_64' >> /etc/opkg/customfeeds.conf
 ```
-### releases/23.05.4 x86 generic
+### releases/23.05.5 x86 generic
 ```
-wget -O /etc/opkg/keys/152ccf91cd6bfbdd http://feeds.lunatiki.de/openplc/releases/23.05.4/i386_pentium4/152ccf91cd6bfbdd
-echo 'src/gz openplc http://feeds.lunatiki.de/openplc/releases/23.05.4/i386_pentium4' >> /etc/opkg/customfeeds.conf
+wget -O /etc/opkg/keys/152ccf91cd6bfbdd http://feeds.lunatiki.de/openplc/releases/23.05.5/i386_pentium4/152ccf91cd6bfbdd
+echo 'src/gz openplc http://feeds.lunatiki.de/openplc/releases/23.05.5/i386_pentium4' >> /etc/opkg/customfeeds.conf
 ```
 
 
