@@ -7,14 +7,13 @@ PKG_SOURCE_URL:=https://github.com/thiagoralves/OpenPLC_v3.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_DATE:=2024-05-01
 PKG_SOURCE_VERSION:=b4702061dc14d1024856f71b4543298d77007b88
-PKG_MIRROR_HASH:=a57f35651a4d4e0901b09994a3d81736dc79e14a03f72c1afddee37669dde6da
+PKG_MIRROR_HASH:=7a6642d223fbe31eadf63e1eac3eae0ea51f51189497fcd1f05ba92bac85ee00
 PKG_LICENSE:=LGPL-2.1-or-later
 PKG_LICENSE_FILES:=COPYING.LESSER
-PKG_SOURCE_SUBDIR:=openplc-$(PKG_VERSION)-git
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)-git
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_FIXUP:=autoreconf
-PKG_BUILD_PARALLEL:=0
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
@@ -38,7 +37,7 @@ define Host/Prepare
 	mkdir -p $(PKG_BUILD_DIR)
 	$(PKG_UNPACK)
 	mkdir -p $(HOST_BUILD_DIR)/
-	cp -a $(BUILD_DIR)/openplc-$(PKG_VERSION)-git/utils/matiec_src/* $(HOST_BUILD_DIR)/
+	cp -a $(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)-git/utils/matiec_src/* $(HOST_BUILD_DIR)/
 endef
 
 define Host/Install
@@ -47,7 +46,7 @@ endef
 
 define Build/Prepare
 	$(PKG_UNPACK)
-	cp -a $(BUILD_DIR)/openplc-$(PKG_VERSION)-git/utils/matiec_src/* $(PKG_BUILD_DIR)/
+	cp -a $(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)-git/utils/matiec_src/* $(PKG_BUILD_DIR)/
 endef
 
 define Package/$(PKG_NAME)/install

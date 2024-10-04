@@ -1,4 +1,5 @@
 include $(TOPDIR)/rules.mk
+include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=ethercat-tool
 PKG_VERSION:=1.5
@@ -6,7 +7,7 @@ PKG_RELEASE:=1
 PKG_SOURCE_URL:=https://gitlab.com/etherlab.org/ethercat.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=stable-1.5
-PKG_MIRROR_HASH:=566d068f6510662298254c7a7fc45415abe25a13fe9feb037fc9d6c7b83d9ad3
+PKG_MIRROR_HASH:=befad8b5a08ad219dd4ec1d8fe297853b054e2b09bd71192b119f070c49299ff
 PKG_LICENSE:=LGPL-2.1-or-later
 PKG_LICENSE_FILES:=COPYING.LESSER
 PKG_FIXUP:=autoreconf
