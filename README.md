@@ -14,11 +14,37 @@ This feed is not enabled by default. Your feeds.conf should contain a line like:
 ```
 src-git openplc https://github.com/stargieg/openplc-feed.git
 ```
+For openwrt-23.05 use
+```
+src-git openplc https://github.com/stargieg/openplc-feed.git;openwrt-23.05
+```
 
 To install all its package definitions, run:
 ```
 ./scripts/feeds update openplc
 ./scripts/feeds install -a -p openplc
+```
+
+Add or change .config
+```
+CONFIG_PACKAGE_python3-flask=y
+CONFIG_PACKAGE_python3-werkzeug=y
+CONFIG_PACKAGE_python3-flask-login=y
+CONFIG_PACKAGE_python3-six=y
+CONFIG_PACKAGE_python3-pyserial=y
+CONFIG_PACKAGE_python3-pymodbus=y
+CONFIG_PACKAGE_gcc=y
+CONFIG_PACKAGE_bash=y
+CONFIG_PACKAGE_sqlite3-cli=y
+CONFIG_PACKAGE_ethercat-src=y
+CONFIG_PACKAGE_ethercat-tool=y
+CONFIG_PACKAGE_openplc=y
+CONFIG_PACKAGE_openplc-dnp=y
+CONFIG_PACKAGE_openplc-glue-generator=y
+CONFIG_PACKAGE_openplc-libmodbus=y
+CONFIG_PACKAGE_openplc-matiec=y
+CONFIG_PACKAGE_openplc-program-pid=y
+CONFIG_PACKAGE_openplc-st-optimizer=y
 ```
 
 ### Usage of OpenWRT SDK
