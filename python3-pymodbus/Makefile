@@ -3,12 +3,13 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=python3-pymodbus
 PKG_VERSION:=2.5.3
 PKG_RELEASE:=1
+PKG_MAINTAINER:=Patrick Grimm <patrick@lunatiki.de>
 PKG_SOURCE_URL:=https://github.com/pymodbus-dev/pymodbus.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=v2.5.3
 PKG_MIRROR_HASH:=058c71d244620849329357d02a6a3404d23151a30bbd10d95b8fbe54652965e0
-PKG_LICENSE:=LGPL-2.1-or-later
-PKG_LICENSE_FILES:=COPYING.LESSER
+PKG_LICENSE:=
+PKG_LICENSE_FILES:=LICENSE
 
 include $(INCLUDE_DIR)/package.mk
 

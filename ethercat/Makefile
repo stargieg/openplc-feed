@@ -4,6 +4,7 @@ include $(INCLUDE_DIR)/kernel.mk
 PKG_NAME:=ethercat
 PKG_VERSION:=1.5
 PKG_RELEASE:=2
+PKG_MAINTAINER:=Patrick Grimm <patrick@lunatiki.de>
 PKG_SOURCE_URL:=https://gitlab.com/etherlab.org/ethercat.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=stable-1.5

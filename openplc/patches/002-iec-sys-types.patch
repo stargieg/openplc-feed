@@ -1,5 +1,5 @@
 diff --git a/core/lib/iec_std_lib.h b/core/lib/iec_std_lib.h
-index 5f685e4..ada3327 100755
+index d06e67b..088ea9f 100755
 --- a/core/lib/iec_std_lib.h
 +++ b/core/lib/iec_std_lib.h
 @@ -41,9 +41,7 @@
@@ -12,3 +12,15 @@ index 5f685e4..ada3327 100755
  
  #ifdef DEBUG_IEC
  #define DBG(...) printf(__VA_ARGS__);
+diff --git a/core/lib/iec_types.h b/core/lib/iec_types.h
+index 609e5b6..864134c 100755
+--- a/core/lib/iec_types.h
++++ b/core/lib/iec_types.h
+@@ -4,6 +4,7 @@
+ #include <limits.h>
+ #include <float.h>
+ #include <stdint.h>
++#include <sys/types.h>
+ 
+ /*********************/
+ /*  IEC Types defs   */
