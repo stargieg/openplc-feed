@@ -27,6 +27,10 @@ To install all its package definitions, run:
 
 Add or change .config
 ```
+CONFIG_TARGET_bcm27xx=y
+CONFIG_TARGET_bcm27xx_bcm2708=y
+CONFIG_TARGET_bcm27xx_bcm2708_DEVICE_rpi=y
+CONFIG_TARGET_ROOTFS_PARTSIZE=1024
 CONFIG_PACKAGE_python3-flask=y
 CONFIG_PACKAGE_python3-werkzeug=y
 CONFIG_PACKAGE_python3-flask-login=y
@@ -44,7 +48,18 @@ CONFIG_PACKAGE_openplc-glue-generator=y
 CONFIG_PACKAGE_openplc-libmodbus=y
 CONFIG_PACKAGE_openplc-matiec=y
 CONFIG_PACKAGE_openplc-program-pid=y
+CONFIG_PACKAGE_openplc-program-blank=y
+CONFIG_PACKAGE_openplc-program-blank-rpi=m
+CONFIG_PACKAGE_openplc-program-blank-rpi_old=m
+CONFIG_PACKAGE_openplc-program-pid=y
+CONFIG_PACKAGE_openplc-program-pid-rpi=m
+CONFIG_PACKAGE_openplc-program-pid-rpi_old=m
 CONFIG_PACKAGE_openplc-st-optimizer=y
+CONFIG_PACKAGE_kmod-raspicomm-module=y
+CONFIG_PACKAGE_pigpio=y
+CONFIG_PACKAGE_pigpio-dev=y
+CONFIG_PACKAGE_wiringpi=y
+CONFIG_PACKAGE_wiringpi-dev=y
 ```
 
 ### Usage of OpenWRT SDK

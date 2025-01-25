@@ -3,11 +3,13 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=wiringpi
 PKG_VERSION:=3.4
 PKG_RELEASE:=1
-
+PKG_MAINTAINER:=Patrick Grimm <patrick@lunatiki.de>
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/WiringPi/WiringPi/archive/refs/tags/$(PKG_VERSION)
 PKG_HASH:=a81219e9ea0ce08295d2fc0457c69c4df0c6d2e846cb5817ba3247f673480d55
 PKG_BUILD_DIR:=$(BUILD_DIR)/WiringPi-$(PKG_VERSION)
+PKG_LICENSE:=LGPL-3.0
+PKG_LICENSE_FILES:=COPYING.LESSER
 
 include $(INCLUDE_DIR)/package.mk
 RSTRIP:=:

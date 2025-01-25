@@ -3,6 +3,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=python3-pymodbus
 PKG_VERSION:=2.5.3
 PKG_RELEASE:=1
+PKG_MAINTAINER:=Patrick Grimm <patrick@lunatiki.de>
 PKG_SOURCE_URL:=https://github.com/pymodbus-dev/pymodbus.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=v2.5.3

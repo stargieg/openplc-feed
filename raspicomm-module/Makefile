@@ -3,12 +3,13 @@ include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=raspicomm-module
 PKG_RELEASE:=2
+PKG_MAINTAINER:=Patrick Grimm <patrick@lunatiki.de>
 PKG_SOURCE_URL:=https://github.com/helioslite/raspicomm-module.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=2137751de6fb8c3fe5a3f6dc961d515d92d10d11
-PKG_MIRROR_HASH:=53c02364ea68250f5c6ac9e09788f2b507f9afba4c4ae8a22004f41e6d5510ae
-PKG_LICENSE:=LGPL-2.1-or-later
-PKG_LICENSE_FILES:=COPYING.LESSER
+PKG_MIRROR_HASH:=8f15d0f91afeca0b036336fd45157b4ca366630c20daf45ac19ac489eaf892d1
+PKG_LICENSE:=GPL
+PKG_LICENSE_FILES:=
 
 include $(INCLUDE_DIR)/package.mk
 

@@ -2,7 +2,8 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=openplc-st-optimizer
 PKG_VERSION:=3
-PKG_RELEASE:=2
+PKG_RELEASE:=3
+PKG_MAINTAINER:=Patrick Grimm <patrick@lunatiki.de>
 PKG_SOURCE_URL:=https://github.com/thiagoralves/OpenPLC_v3.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_DATE:=2024-05-01

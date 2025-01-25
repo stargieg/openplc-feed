@@ -1,5 +1,8 @@
---- a/dev/null	2024-05-17 13:39:01.533998514 +0200
-+++ b/core/hardware_layers/raspberrypi_raspicomm.cpp	2024-05-21 19:43:53.826341846 +0200
+diff --git a/core/hardware_layers/raspberrypi_raspicomm.cpp b/core/hardware_layers/raspberrypi_raspicomm.cpp
+new file mode 100644
+index 0000000..161eb49
+--- /dev/null
++++ b/core/hardware_layers/raspberrypi_raspicomm.cpp
 @@ -0,0 +1,145 @@
 +//-----------------------------------------------------------------------------
 +// Copyright 2015 Thiago Alves
@@ -146,3 +149,34 @@
 +
 +	pthread_mutex_unlock(&bufferLock); //unlock mutex
 +}
+diff --git a/scripts/change_hardware_layer.sh b/scripts/change_hardware_layer.sh
+index 12f7a5d..b38d5d8 100755
+--- a/scripts/change_hardware_layer.sh
++++ b/scripts/change_hardware_layer.sh
+@@ -80,6 +80,13 @@ elif [[ $1 == opi* ]]; then
+     echo opi > ../scripts/openplc_platform
+     echo "$1" > ../scripts/openplc_driver
+ 
++elif [ "$1" == "rpi_raspicomm" ]; then
++    echo "Activating Raspberry Pi 2011 driver with Raspi Comm"
++    cp ./hardware_layers/raspberrypi_raspicomm.cpp ./hardware_layer.cpp
++    echo "Setting Platform"
++    echo rpi > ../scripts/openplc_platform
++    echo rpi_raspicomm > ../scripts/openplc_driver
++
+ elif [ "$1" == "simulink" ]; then
+     echo "Activating Simulink driver"
+     cp ./hardware_layers/simulink.cpp ./hardware_layer.cpp
+diff --git a/webserver.py b/webserver.py
+index b4f8ecd..d6d3dbf 100644
+--- a/webserver.py
++++ b/webserver.py
+@@ -1730,6 +1730,8 @@ def hardware():
+             else: return_str += "<option value='rpi'>Raspberry Pi</option>"
+             if (current_driver == "rpi_old"): return_str += "<option selected='selected' value='rpi_old'>Raspberry Pi - Old Model (2011 model B)</option>"
+             else: return_str += "<option value='rpi_old'>Raspberry Pi - Old Model (2011 model B)</option>"
++            if (current_driver == "rpi_raspicomm"): return_str += "<option selected='selected' value='rpi_raspicomm'>Raspberry Pi - Old Model (2011 model B) with Raspi Comm</option>"
++            else: return_str += "<option value='rpi_raspicomm'>Raspberry Pi - Old Model (2011 model B) with Raspi Comm</option>"
+             if (current_driver == "opi_zero2"): return_str += "<option selected='selected' value='opi_zero2'>Orange Pi Zero2/Zero2 LTS/Zero2 B</option>"
+             else: return_str += "<option value='opi_zero2'>Orange Pi Zero2/Zero2 LTS/Zero2 B</option>"
+             if (current_driver == "simulink"): return_str += "<option selected='selected' value='simulink'>Simulink</option>"

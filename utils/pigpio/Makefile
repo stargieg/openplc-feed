@@ -6,10 +6,12 @@ PKG_NAME:=pigpio
 CMAKE_INSTALL:=1
 PKG_VERSION:=79
 PKG_RELEASE:=1
-
+PKG_MAINTAINER:=Patrick Grimm <patrick@lunatiki.de>
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/joan2937/pigpio/archive/refs/tags/v$(PKG_VERSION)
 PKG_HASH:=c5337c0b7ae888caf0262a6f476af0e2ab67065f7650148a0b21900b8d1eaed7
+PKG_LICENSE:=Unlicense
+PKG_LICENSE_FILES:=UNLICENCE
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk

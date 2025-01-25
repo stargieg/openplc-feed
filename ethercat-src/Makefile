@@ -4,13 +4,14 @@ PKG_NAME:=ethercat-src
 CMAKE_INSTALL:=1
 PKG_VERSION:=3
 PKG_RELEASE:=1
+PKG_MAINTAINER:=Patrick Grimm <patrick@lunatiki.de>
 PKG_SOURCE_URL:=https://github.com/r2k-in-the-vortex/ethercat_src.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_DATE:=2024-05-08
 PKG_SOURCE_VERSION:=main
 PKG_MIRROR_HASH:=651b7a3a1d918e44b0ff0bc2f602b237dad9e450dbb489c27657fadd2d54653a
-PKG_LICENSE:=LGPL-2.1-or-later
-PKG_LICENSE_FILES:=COPYING.LESSER
+PKG_LICENSE:=GPL-3.0
+PKG_LICENSE_FILES:=
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
@@ -22,7 +23,8 @@ define Package/$(PKG_NAME)
   CATEGORY:=Network
   TITLE:=OpenPLC ethercat version 3
   URL:=https://github.com/thiagoralves/OpenPLC_v3
-  DEPENDS:=+libstdcpp +libxml2 +ethercat-tool
+  DEPENDS:=+libstdcpp +libxml2 +libxml2-dev +ethercat-tool
+  EXTRA_DEPENDS:=libxml2-dev
 endef
 
 define Package/$(PKG_NAME)/description

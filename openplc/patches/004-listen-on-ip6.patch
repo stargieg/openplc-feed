@@ -1,8 +1,8 @@
 diff --git a/webserver.py b/webserver.py
-index 0fafa2e..fd18593 100644
+index b4f8ecd..a4b6129 100644
 --- a/webserver.py
 +++ b/webserver.py
-@@ -2433,7 +2433,7 @@ if __name__ == '__main__':
+@@ -2452,7 +2452,7 @@ if __name__ == '__main__':
                  configure_runtime()
                  monitor.parse_st(openplc_runtime.project_file)
              
