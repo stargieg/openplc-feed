@@ -1,0 +1,36 @@
+diff --git a/module.c b/module.c
+index a7bb3c4..42b51ff 100644
+--- a/module.c
++++ b/module.c
+@@ -124,11 +124,11 @@ static int  raspicommDriver_open (struct tty_struct *, struct file *);
+ static void raspicommDriver_close(struct tty_struct *, struct file *);
+ static int  raspicommDriver_write(struct tty_struct *, 
+                                   const unsigned char *, 
+-                                  int);
++                                  unsigned int);
+ static unsigned int  raspicommDriver_write_room(struct tty_struct *);
+ static void raspicommDriver_flush_buffer(struct tty_struct *);
+ static unsigned int  raspicommDriver_chars_in_buffer(struct tty_struct *);
+-static void raspicommDriver_set_termios(struct tty_struct *, struct ktermios *);
++static void raspicommDriver_set_termios(struct tty_struct *, const struct ktermios *);
+ static void raspicommDriver_stop(struct tty_struct *);
+ static void raspicommDriver_start(struct tty_struct *);
+ static void raspicommDriver_hangup(struct tty_struct *);
+@@ -807,7 +807,7 @@ static void raspicommDriver_close(struct tty_struct* tty, struct file* file)
+ // called by the kernel after write() is called from userspace and write_room() returns > 0
+ static int raspicommDriver_write(struct tty_struct* tty, 
+                                  const unsigned char* buf,
+-                                 int count)
++                                 unsigned int count)
+ {
+   int bytes_written = 0;
+   unsigned long flags;
+@@ -854,7 +854,7 @@ static unsigned int raspicommDriver_chars_in_buffer(struct tty_struct * tty)
+ }
+ 
+ // called by the kernel when cfsetattr() is called from userspace
+-static void raspicommDriver_set_termios(struct tty_struct* tty, struct ktermios* kt)
++static void raspicommDriver_set_termios(struct tty_struct* tty, const struct ktermios* kt)
+ {
+   int cflag;
+   speed_t baudrate; Databits databits; Parity parity; Stopbits stopbits;
