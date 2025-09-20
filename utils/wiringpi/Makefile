@@ -1,12 +1,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=wiringpi
-PKG_VERSION:=3.4
+PKG_VERSION:=3.14
 PKG_RELEASE:=1
 PKG_MAINTAINER:=Patrick Grimm <patrick@lunatiki.de>
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/WiringPi/WiringPi/archive/refs/tags/$(PKG_VERSION)
-PKG_HASH:=a81219e9ea0ce08295d2fc0457c69c4df0c6d2e846cb5817ba3247f673480d55
+PKG_HASH:=71d8b4c3bc967cf77ac15fad38791e9976cded31798715cdd3abbf8cca5cd401
 PKG_BUILD_DIR:=$(BUILD_DIR)/WiringPi-$(PKG_VERSION)
 PKG_LICENSE:=LGPL-3.0
 PKG_LICENSE_FILES:=COPYING.LESSER
@@ -34,7 +34,7 @@ define Package/$(PKG_NAME)-dev
  endef
 
 define Package/$(PKG_NAME)/description
-  C GPIO libraries for the RPI
+  C GPIO libraries for RPi 1..5, CM5, CM5(L), Pi500, GCLK (Generic Clock) for RPi5 is not supported.
 endef
 
 define Build/Compile
