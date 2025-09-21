@@ -5,11 +5,11 @@ PKG_VERSION:=3
 PKG_RELEASE:=6
 PKG_MAINTAINER:=Patrick Grimm <patrick@lunatiki.de>
 PKG_SOURCE_URL:=https://github.com/thiagoralves/OpenPLC_v3.git
-PKG_MIRROR_HASH:=edec5e56f493a7d8250a18e8dd7df2c832a8ef73a4683baae20c40e720c23e96
+PKG_MIRROR_HASH:=47f45e9e0b95d90d410772aadec11685fae6686124f810f74bb7b8a00ed00a1e
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_SUBMODULES:=skip
-PKG_SOURCE_DATE:=2025-01-18
-PKG_SOURCE_VERSION:=01770ddd8ce88045ec5a95fa17f3ccae4d9bf2c0
+PKG_SOURCE_DATE:=2025-09-11
+PKG_SOURCE_VERSION:=4d8d73f57cf2e4b679bec6cd0daf07939e527a38
 PKG_LICENSE:=GPL-3.0
 PKG_LICENSE_FILES:=
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)-git
@@ -26,7 +26,7 @@ define Package/$(PKG_NAME)
   TITLE:=OpenPLC Program PID version 3
   VARIANT:=linux
   URL:=https://github.com/thiagoralves/OpenPLC_v3
-  DEPENDS:=+libstdcpp +openplc +openplc-libmodbus +openplc-dnp +TARGET_x86:ethercat-src
+  DEPENDS:=+libstdcpp +openplc +openplc-libmodbus +openplc-dnp +openplc-snap7 +TARGET_x86:ethercat-src
   EXTRA_DEPENDS:=sqlite3-cli
 endef
 
@@ -38,14 +38,14 @@ define Package/$(PKG_NAME)-rpi
   $(call Package/$(PKG_NAME))
   TITLE:=OpenPLC Program PID version 3 for RPI
   VARIANT:=rpi
-  DEPENDS:=@TARGET_bcm27xx +libstdcpp +openplc-libmodbus +openplc-dnp +TARGET_bcm27xx:pigpio-dev
+  DEPENDS:=@TARGET_bcm27xx +libstdcpp +openplc-libmodbus +openplc-dnp +openplc-snap7 +TARGET_bcm27xx:pigpio-dev +TARGET_bcm27xx:wiringpi-dev
 endef
 
 define Package/$(PKG_NAME)-rpi_old
   $(call Package/$(PKG_NAME))
   TITLE:=OpenPLC Program PID version 3 for old RPI
   VARIANT:=rpi_old
-  DEPENDS:=@TARGET_bcm27xx +libstdcpp +openplc-libmodbus +openplc-dnp +TARGET_bcm27xx:wiringpi-dev
+  DEPENDS:=@TARGET_bcm27xx +libstdcpp +openplc-libmodbus +openplc-dnp +openplc-snap7 +TARGET_bcm27xx:wiringpi-dev
 endef
 
 define Build/Prepare
@@ -68,21 +68,23 @@ define Build/Compile
 	mv -f $(PKG_BUILD_DIR)/Config0.c $(PKG_BUILD_DIR)/Config0.h $(PKG_BUILD_DIR)/core/
 	$(if $(CONFIG_TARGET_x86), sed -i '7s/^/#include "ethercat_src.h" /' $(PKG_BUILD_DIR)/Res0.c)
 	mv -f $(PKG_BUILD_DIR)/Res0.c $(PKG_BUILD_DIR)/core/
+	cp "$(STAGING_DIR)/usr/libexec/openplc/core/oplc_snap7.cpp" "$(PKG_BUILD_DIR)/core/"
+	cp "$(STAGING_DIR)/usr/libexec/openplc/core/oplc_snap7.h" "$(PKG_BUILD_DIR)/core/"
 	$(TARGET_CXX) -std=gnu++11 -I $(PKG_BUILD_DIR)/core/lib \
 		-c $(PKG_BUILD_DIR)/core/Config0.c \
 		-o $(PKG_BUILD_DIR)/core/Config0.o \
-		-lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w $(if $(CONFIG_TARGET_x86), -lethercat_src -D _ethercat_src)
+		-lsnap7 -lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w $(if $(CONFIG_TARGET_x86), -lethercat_src -D _ethercat_src)
 	$(TARGET_CXX) -std=gnu++11 -I $(PKG_BUILD_DIR)/core/lib \
 		-c $(PKG_BUILD_DIR)/core/Res0.c \
 		-o $(PKG_BUILD_DIR)/core/Res0.o \
-		-lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w $(if $(CONFIG_TARGET_x86), -lethercat_src -D _ethercat_src)
+		-lsnap7 -lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w $(if $(CONFIG_TARGET_x86), -lethercat_src -D _ethercat_src)
 	cd $(PKG_BUILD_DIR)/core ; \
 		$(STAGING_DIR_HOST)/bin/glue_generator
 	$(TARGET_CXX) -std=gnu++11 $(PKG_BUILD_DIR)/core/*.cpp \
 		$(PKG_BUILD_DIR)/core/*.o -o $(PKG_BUILD_DIR)/core/openplc \
 		-I $(PKG_BUILD_DIR)/core/lib -pthread -fpermissive \
 		`pkg-config --cflags --libs libmodbus` \
-		-lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w $(if $(CONFIG_TARGET_x86), -lethercat_src -D _ethercat_src)
+		-lsnap7 -lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w $(if $(CONFIG_TARGET_x86), -lethercat_src -D _ethercat_src)
 endef
 endif
 
@@ -98,21 +100,23 @@ define Build/Compile
 	mv -f $(PKG_BUILD_DIR)/LOCATED_VARIABLES.h $(PKG_BUILD_DIR)/VARIABLES.csv $(PKG_BUILD_DIR)/core/
 	mv -f $(PKG_BUILD_DIR)/Config0.c $(PKG_BUILD_DIR)/Config0.h $(PKG_BUILD_DIR)/core/
 	mv -f $(PKG_BUILD_DIR)/Res0.c $(PKG_BUILD_DIR)/core/
+	cp "$(STAGING_DIR)/usr/libexec/openplc/core/oplc_snap7.cpp" "$(PKG_BUILD_DIR)/core/"
+	cp "$(STAGING_DIR)/usr/libexec/openplc/core/oplc_snap7.h" "$(PKG_BUILD_DIR)/core/"
 	$(TARGET_CXX) -std=gnu++11 -I $(PKG_BUILD_DIR)/core/lib \
 		-c $(PKG_BUILD_DIR)/core/Config0.c \
 		-o $(PKG_BUILD_DIR)/core/Config0.o \
-		-lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w
+		-lsnap7 -lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w
 	$(TARGET_CXX) -std=gnu++11 -I $(PKG_BUILD_DIR)/core/lib \
 		-c $(PKG_BUILD_DIR)/core/Res0.c \
 		-o $(PKG_BUILD_DIR)/core/Res0.o \
-		-lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w
+		-lsnap7 -lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w
 	cd $(PKG_BUILD_DIR)/core ; \
 		$(STAGING_DIR_HOST)/bin/glue_generator
 	$(TARGET_CXX) -std=gnu++11 $(PKG_BUILD_DIR)/core/*.cpp \
 		$(PKG_BUILD_DIR)/core/*.o -o $(PKG_BUILD_DIR)/core/openplc \
-		-I $(PKG_BUILD_DIR)/core/lib -pthread -fpermissive -lpigpio \
+		-I $(PKG_BUILD_DIR)/core/lib -pthread -fpermissive -lpigpio -lwiringPi \
 		`pkg-config --cflags --libs libmodbus` \
-		-lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w
+		-lsnap7 -lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w
 endef
 endif
 
@@ -128,21 +132,23 @@ define Build/Compile
 	mv -f $(PKG_BUILD_DIR)/LOCATED_VARIABLES.h $(PKG_BUILD_DIR)/VARIABLES.csv $(PKG_BUILD_DIR)/core/
 	mv -f $(PKG_BUILD_DIR)/Config0.c $(PKG_BUILD_DIR)/Config0.h $(PKG_BUILD_DIR)/core/
 	mv -f $(PKG_BUILD_DIR)/Res0.c $(PKG_BUILD_DIR)/core/
+	cp "$(STAGING_DIR)/usr/libexec/openplc/core/oplc_snap7.cpp" "$(PKG_BUILD_DIR)/core/"
+	cp "$(STAGING_DIR)/usr/libexec/openplc/core/oplc_snap7.h" "$(PKG_BUILD_DIR)/core/"
 	$(TARGET_CXX) -std=gnu++11 -I $(PKG_BUILD_DIR)/core/lib \
 		-c $(PKG_BUILD_DIR)/core/Config0.c \
 		-o $(PKG_BUILD_DIR)/core/Config0.o \
-		-lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w
+		-lsnap7 -lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w
 	$(TARGET_CXX) -std=gnu++11 -I $(PKG_BUILD_DIR)/core/lib \
 		-c $(PKG_BUILD_DIR)/core/Res0.c \
 		-o $(PKG_BUILD_DIR)/core/Res0.o \
-		-lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w
+		-lsnap7 -lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w
 	cd $(PKG_BUILD_DIR)/core ; \
 		$(STAGING_DIR_HOST)/bin/glue_generator
 	$(TARGET_CXX) -std=gnu++11 $(PKG_BUILD_DIR)/core/*.cpp \
 		$(PKG_BUILD_DIR)/core/*.o -o $(PKG_BUILD_DIR)/core/openplc \
 		-I $(PKG_BUILD_DIR)/core/lib -pthread -fpermissive -lwiringPi \
 		`pkg-config --cflags --libs libmodbus` \
-		-lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w
+		-lsnap7 -lasiodnp3 -lasiopal -lopendnp3 -lopenpal -w
 endef
 endif
 

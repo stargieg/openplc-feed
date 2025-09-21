@@ -5,11 +5,11 @@ PKG_VERSION:=3
 PKG_RELEASE:=5
 PKG_MAINTAINER:=Patrick Grimm <patrick@lunatiki.de>
 PKG_SOURCE_URL:=https://github.com/thiagoralves/OpenPLC_v3.git
-PKG_MIRROR_HASH:=efd36e7a8f3344a39a7dfc795ececb8928be03d9a10497cc620f1dfdb708c982
+PKG_MIRROR_HASH:=b30689c74203f81642063689e46c9c3fb9e98d9ccab4e1bada7a7958668be6e6
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_SUBMODULES:=skip
-PKG_SOURCE_DATE:=2025-01-18
-PKG_SOURCE_VERSION:=01770ddd8ce88045ec5a95fa17f3ccae4d9bf2c0
+PKG_SOURCE_DATE:=2025-09-11
+PKG_SOURCE_VERSION:=4d8d73f57cf2e4b679bec6cd0daf07939e527a38
 PKG_SOURCE_SUBDIR:=openplc-$(PKG_VERSION)-git
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 PKG_LICENSE:=GPL-3.0
@@ -27,7 +27,7 @@ define Package/$(PKG_NAME)
   EXTRA_DEPENDS:=python3-flask, python3-werkzeug, python3-flask-login, gcc, bash
   DEPENDS:=+openplc-dnp +openplc-glue-generator +openplc-libmodbus \
     +openplc-matiec +openplc-st-optimizer +TARGET_x86:ethercat-src +python3-pymodbus \
-	+TARGET_bcm27xx:pigpio-dev +TARGET_bcm27xx:wiringpi-dev
+	+TARGET_bcm27xx:pigpio-dev +TARGET_bcm27xx:wiringpi-dev +openplc-snap7
 endef
 
 define Package/$(PKG_NAME)/description
